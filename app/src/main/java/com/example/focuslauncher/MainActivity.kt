@@ -1,5 +1,6 @@
 package com.example.focuslauncher
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -8,8 +9,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import com.example.focuslauncher.module.AppList
-import com.example.focuslauncher.module.DatenTime
+import com.example.focuslauncher.module.Home
 import com.example.focuslauncher.ui.theme.FocusLauncherTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,8 +25,10 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     Column {
-                        DatenTime()
-                        AppList()
+                        val packageManagerO = LocalContext.current.packageManager
+                        val applist = packageManagerO.getInstalledApplications(PackageManager.MATCH_DEFAULT_ONLY)
+                        Home(applist,packageManagerO)
+                        AppList(applist,packageManagerO)
 
                     }
                 }

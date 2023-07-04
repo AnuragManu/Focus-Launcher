@@ -1,5 +1,6 @@
 package com.example.focuslauncher.module
 
+import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,9 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.example.focuslauncher.R
 
 @Composable
-    fun AppList() {
-        val packageManagerO = LocalContext.current.packageManager
-        val applist = packageManagerO.getInstalledApplications(PackageManager.MATCH_DEFAULT_ONLY)
+    fun AppList(applist: MutableList<ApplicationInfo>, packageManagerO: PackageManager) {
         val filteredApps = applist.filter { appinfo ->
             val launchIntent = packageManagerO.getLaunchIntentForPackage(appinfo.packageName)
             launchIntent != null
